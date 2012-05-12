@@ -12,7 +12,6 @@ namespace parameters
 class ClusteringParameters
 {
     public:
-        ClusteringParameters();
         ~ClusteringParameters(){};
         ClusteringParameters(const ClusteringParameters &cpy);
         ClusteringParameters(int _numClusters = 500,
@@ -47,10 +46,28 @@ class ClusteringParameters
 class SIFTParameters
 {
     public:
-        SIFTParameters();
-        ~SIFTParameters();
-        double detectionThreshold;
+        ~SIFTParameters(){};
+        SIFTParameters(const SIFTParameters &cpy);
+        SIFTParameters(int _numFeatures = 0,
+                        int _numOctaves = 3,
+                        double _contrastThreshold = 0.04,
+                        double _edgeThreshold = 10.0,
+                        double _sigma = 1.6);
+
+        SIFTParameters& operator=(const SIFTParameters &rhs);
+
+        void setDefault();
+        void set(int _numFeatures = 0,
+                int _numOctaves = 3,
+                double _contrastThreshold = 0.04,
+                double _edgeThreshold = 10.0,
+                double _sigma = 1.6);
+
+        int numFeatures;
+        int numOctaves;
+        double contrastThreshold;
         double edgeThreshold;
+        double sigma;
 };
 
 struct SURFParameters
@@ -64,11 +81,45 @@ struct SURFParameters
 class SVMParameters
 {
     public:
-        SVMParameters();
         ~SVMParameters(){};
         SVMParameters(const SVMParameters &cpy);
+        SVMParameters(int _type = CvSVM::NU_SVC,
+                int _kernel = CvSVM::RBF,
+                double _degree = 3,
+                double _gamma = 1,
+                double _coef0 = 0.5,
+                double _C = 1,
+                double _cache = 256,
+                double _eps = 0.0001,
+                double _nu = 0.5,
+                double _p = 0.2,
+                int _termType = CV_TERMCRIT_ITER+CV_TERMCRIT_EPS,
+                int _iterations = 1000,
+                int _shrinking = 0,
+                int _probability = 0,
+                int _weight = 0,
+                int _kFold = 10);
+
+
         SVMParameters& operator=(const SVMParameters &rhs);
+
         void setDefault();
+        void set(int _type = CvSVM::NU_SVC,
+                int _kernel = CvSVM::RBF,
+                double _degree = 3,
+                double _gamma = 1,
+                double _coef0 = 0.5,
+                double _C = 1,
+                double _cache = 256,
+                double _eps = 0.0001,
+                double _nu = 0.5,
+                double _p = 0.2,
+                int _termType = CV_TERMCRIT_ITER+CV_TERMCRIT_EPS,
+                int _iterations = 1000,
+                int _shrinking = 0,
+                int _probability = 0,
+                int _weight = 0,
+                int _kFold = 10);
 
         int type;
         int kernel;

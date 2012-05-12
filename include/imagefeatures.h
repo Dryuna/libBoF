@@ -24,19 +24,33 @@ class BaseImageFeatures
     public:
         virtual int extract(const cv::Mat &inputImg,
                             std::vector<FeatureVector> &descriptors,
-                            std::vector<cv::KeyPoint> &keypoints)=0;
-    protected:
+                            std::vector<cv::KeyPoint> &keypoints,
+                            bool providePts=false)=0;
 
-}
+};
 
 class SIFTFeatures : public BaseImageFeatures
 {
     public:
         SIFTFeatures();
-        ~SIFTFeatures();
-        SIFTFeatures(const SIFTFeatures &cpy);
+        ~SIFTFeatures(){}
+        SIFTFeatures(const SIFTFeatures &cpy){params = cpy.params;}
+        SIFTFeatures(const parameters::SIFTParameters &_params){params = _params;}
+
+        SIFTFeatures& operator=(const SIFTFeatures &rhs);
+
+        int extract(const cv::Mat &inputImg,
+                    std::vector<FeatureVector> &descriptors,
+                    std::vector<cv::KeyPoint> &keypoints,
+                    bool providePts=false);
+
+
+    private:
+        parameters::SIFTParameters params;
 
 };
+
+
 
 }//namespace features
 }//namespace bof

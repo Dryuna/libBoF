@@ -1,3 +1,56 @@
+#include "imagefeatures.h"
+namespace bof
+{
+namespace features
+{
+////////////////////////////////////////////////////////////////////////
+//SIFTFeatures
+////////////////////////////////////////////////////////////////////////
+
+SIFTFeatures& SIFTFeatures::operator=(const SIFTFeatures &rhs)
+{
+    if(this == &rhs)
+        return *this;
+    params = rhs.params;
+
+    return *this;
+}
+
+int SIFTFeatures::extract(const cv::Mat &inputImg,
+            std::vector<FeatureVector> &descriptors,
+            std::vector<cv::KeyPoint> &keypoints,
+            bool providePts)
+{
+    cv::SIFT detector(params.contrastThreshold,
+                      params.edgeThreshold);
+    descriptors.clear();
+    keypoints.clear();
+    cv::Mat descr;
+    detector(inputImg, cv::Mat(), keypoints, descr, providePts);
+    int numFeatures = descr.rows;
+    int featureLength = descr.cols;
+
+    descriptors.resize(numFeatures);
+    for(int i = 0; i < numFeatures; ++i)
+    {
+        descriptors[i].resize(featureLength);
+        for(int j = 0; j < featureLength; ++j)
+            descriptors[i][j] = descr.at<float>(i,j);
+    }
+
+    return numFeatures;
+}
+
+}//namespace features
+}//namespace bof
+
+
+
+
+
+
+
+
 //#include <omp.h>
 //#include "imagefeatures.h"
 //#include "math.h"

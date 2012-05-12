@@ -9,11 +9,6 @@ namespace parameters
 //ClusteringParameters
 ////////////////////////////////////////////////////////////////////////
 
-ClusteringParameters::ClusteringParameters()
-{
-    setDefault();
-}
-
 ClusteringParameters::ClusteringParameters(const ClusteringParameters &cpy)
 {
     distance = cpy.distance;
@@ -87,12 +82,70 @@ void ClusteringParameters::set(int _numClusters,
 }
 
 ////////////////////////////////////////////////////////////////////////
+//SIFTParameters
+////////////////////////////////////////////////////////////////////////
+
+SIFTParameters::SIFTParameters(const SIFTParameters &cpy)
+{
+    numFeatures = cpy.numFeatures;
+    numOctaves = cpy.numOctaves;
+    contrastThreshold = cpy.contrastThreshold;
+    edgeThreshold = cpy.edgeThreshold;
+    sigma = cpy.sigma;
+}
+
+SIFTParameters::SIFTParameters(int _numFeatures,
+                            int _numOctaves,
+                            double _contrastThreshold,
+                            double _edgeThreshold,
+                            double _sigma)
+{
+    numFeatures = _numFeatures;
+    numOctaves = _numOctaves;
+    contrastThreshold = _contrastThreshold;
+    edgeThreshold = _edgeThreshold;
+    sigma = _sigma;
+}
+
+SIFTParameters& SIFTParameters::operator=(const SIFTParameters &rhs)
+{
+    if(this == &rhs)
+        return *this;
+
+    numFeatures = rhs.numFeatures;
+    numOctaves = rhs.numOctaves;
+    contrastThreshold = rhs.contrastThreshold;
+    edgeThreshold = rhs.edgeThreshold;
+    sigma = rhs.sigma;
+
+    return *this;
+}
+
+void SIFTParameters::setDefault()
+{
+    numFeatures = 0;
+    numOctaves = 3;
+    contrastThreshold = 0.04;
+    edgeThreshold = 10.0;
+    sigma = 1.6;
+}
+
+void SIFTParameters::set(int _numFeatures,
+                        int _numOctaves,
+                        double _contrastThreshold,
+                        double _edgeThreshold,
+                        double _sigma)
+{
+    numFeatures = _numFeatures;
+    numOctaves = _numOctaves;
+    contrastThreshold = _contrastThreshold;
+    edgeThreshold = _edgeThreshold;
+    sigma = _sigma;
+}
+
+////////////////////////////////////////////////////////////////////////
 //SVMParameters
 ////////////////////////////////////////////////////////////////////////
-SVMParameters::SVMParameters()
-{
-    setDefault();
-}
 
 SVMParameters::SVMParameters(const SVMParameters &cpy)
 {
@@ -112,6 +165,41 @@ SVMParameters::SVMParameters(const SVMParameters &cpy)
     probability = cpy.probability;
     weight = cpy.weight;
     kFold = cpy.kFold;
+}
+
+SVMParameters::SVMParameters(int _type,
+                            int _kernel,
+                            double _degree,
+                            double _gamma,
+                            double _coef0,
+                            double _C,
+                            double _cache,
+                            double _eps,
+                            double _nu,
+                            double _p,
+                            int _termType,
+                            int _iterations,
+                            int _shrinking,
+                            int _probability,
+                            int _weight,
+                            int _kFold)
+{
+    type = _type;
+    kernel = _kernel;
+    degree = _degree;
+    gamma = _gamma;
+    coef0 = _coef0;
+    C = _C;
+    cache = _cache;
+    eps = _eps;
+    nu = _nu;
+    p = _p;
+    termType = _termType;
+    iterations = _iterations;
+    shrinking = _shrinking;
+    probability = _probability;
+    weight = _weight;
+    kFold = _kFold;
 }
 
 SVMParameters& SVMParameters::operator=(const SVMParameters &rhs)
@@ -157,6 +245,41 @@ void SVMParameters::setDefault()
     probability = 0;
     weight = 0;
     kFold = 10;
+}
+
+void SVMParameters::set(int _type,
+                            int _kernel,
+                            double _degree,
+                            double _gamma,
+                            double _coef0,
+                            double _C,
+                            double _cache,
+                            double _eps,
+                            double _nu,
+                            double _p,
+                            int _termType,
+                            int _iterations,
+                            int _shrinking,
+                            int _probability,
+                            int _weight,
+                            int _kFold)
+{
+    type = _type;
+    kernel = _kernel;
+    degree = _degree;
+    gamma = _gamma;
+    coef0 = _coef0;
+    C = _C;
+    cache = _cache;
+    eps = _eps;
+    nu = _nu;
+    p = _p;
+    termType = _termType;
+    iterations = _iterations;
+    shrinking = _shrinking;
+    probability = _probability;
+    weight = _weight;
+    kFold = _kFold;
 }
 
 }//namespace parameters
