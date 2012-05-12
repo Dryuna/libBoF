@@ -85,6 +85,7 @@ class FeatureVector
         void normalize();
         double distance(const FeatureVector &fv, int type=DISTANCE_TYPE_EUCLIDEAN);
 
+        //TODO this should be protected
         std::vector<double> data;
         size_t size;
 };

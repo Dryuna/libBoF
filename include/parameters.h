@@ -1,6 +1,10 @@
 #ifndef BOF_PARAMETERS_H
 #define BOF_PARAMETERS_H
 
+#include <cv.h>
+#include <cxcore.h>
+#include <ml.h>
+
 namespace bof
 {
 namespace parameters
@@ -11,8 +15,24 @@ class ClusteringParameters
         ClusteringParameters();
         ~ClusteringParameters(){};
         ClusteringParameters(const ClusteringParameters &cpy);
+        ClusteringParameters(int _numClusters = 500,
+                             int _numPass = 5,
+                             char _method = 'a',
+                             char _distance = 'e',
+                             cvflann::flann_centers_init_t _FLANNmethod = cvflann::CENTERS_RANDOM,
+                             int _branching = 32,
+                             float _cbIndex = 0.2);
+
         ClusteringParameters& operator=(const ClusteringParameters &rhs);
+
         void setDefault();
+        void set(int _numClusters = 500,
+                 int _numPass = 5,
+                 char _method = 'a',
+                 char _distance = 'e',
+                 cvflann::flann_centers_init_t _FLANNmethod = cvflann::CENTERS_RANDOM,
+                 int _branching = 32,
+                 float _cbIndex = 0.2);
 
         int numClusters;
         int numPass;
@@ -24,10 +44,13 @@ class ClusteringParameters
         float cbIndex;
 };
 
-struct SIFTParameters
+class SIFTParameters
 {
-    double detectionThreshold;
-    double edgeThreshold;
+    public:
+        SIFTParameters();
+        ~SIFTParameters();
+        double detectionThreshold;
+        double edgeThreshold;
 };
 
 struct SURFParameters
