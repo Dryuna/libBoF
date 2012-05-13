@@ -44,6 +44,17 @@ void BoFBuilder::addFeature(const std::vector<double> &feature)
     size++;
 }
 
+void BoFBuilder::addFeature(const FeatureVector &feature)
+{
+    addFeature(feature.data);
+}
+
+void BoFBuilder::addFeatures(const std::vector<FeatureVector> &features)
+{
+    for(size_t i = 0; i < features.size(); ++i)
+        addFeature(features[i].data);
+}
+
 void BoFBuilder::clearAll()
 {
     clearFeatures();
@@ -75,6 +86,27 @@ void BoFBuilder::buildCodex(const parameters::ClusteringParameters &parameters,
 }
 
 bool BoFBuilder::getBoF(const std::vector<std::vector<double> > &input, FeatureHistogram &hist, bool normalized)
+{
+    assert(built);
+    if(built)
+    {
+        int idx;
+        hist.resize(codex.getSize());
+        hist.zero();
+        for(size_t i = 0; i < input.size(); ++i)
+        {
+            idx = codex.match(input[i]);
+            hist.addAt(idx);
+        }
+        if(normalized)
+            hist.normalize();
+        return true;
+    }
+    else
+        return false;
+}
+
+bool BoFBuilder::getBoF(const std::vector<FeatureVector> &input, FeatureHistogram &hist, bool normalized)
 {
     assert(built);
     if(built)

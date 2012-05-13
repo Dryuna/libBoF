@@ -25,12 +25,14 @@ class BoFBuilder
         void clearCodex();
 
         void addFeature(const std::vector<double> &feature);
-        void buildCodex(const parameters::ClusteringParameters &parameters,
+        void addFeature(const FeatureVector &feature);
+        void addFeatures(const std::vector<FeatureVector> &features);
+        void buildCodex(const parameters::ClusteringParameters &parameters=parameters::ClusteringParameters(),
                      int method=CLUSTERING_FLANN);
         bool isBuilt(){return built;}
 
         bool getBoF(const std::vector<std::vector<double> > &input, FeatureHistogram &hist, bool normalized=true);
-
+        bool getBoF(const std::vector<FeatureVector> &input, FeatureHistogram &hist, bool normalized=true);
     private:
         std::vector<FeatureVector> trainFeatures;
         size_t size;

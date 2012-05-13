@@ -163,7 +163,7 @@ void FeatureCodex::clear()
 
 int FeatureCodex::match(const FeatureVector &f, int method)
 {
-    assert(length != f.size);
+    assert(length == f.size);
     if(method == MATCHING_FLANN)
         return FLANNMatch(f);
     else if(method == MATCHING_EUCLIDEAN)
